@@ -1,4 +1,4 @@
-import { View, Text, Image, FlatList, Dimensions, StyleSheet } from 'react-native'
+import { View, Text, Image, FlatList, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 const { width } = Dimensions.get('window');
@@ -82,7 +82,44 @@ const ProfileDetails = () => {
                         </Text>
         </Text>
         <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-
+          <TouchableOpacity 
+              style={{ margin:2,borderRadius:10, padding:10, width:'50%', borderColor:'#F26C0C', borderWidth:1.5}}
+              // onPress={}
+          >
+              <Text style={{textAlign:'center', color:'#F26C0C'}}>Request Mentorship</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={{ margin:2,borderRadius:10, padding:10, width:'50%', borderColor:'#F26C0C', borderWidth:1.5}}
+            // onPress={}
+          >
+              <Text style={{textAlign:'center', color:'#F26C0C'}}>Follow</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity 
+            style={{ margin:4,borderRadius:10, padding:10, width:'100%', borderColor:'#F26C0C', borderWidth:1.5}}
+            // onPress={}
+          >
+              <Text style={{textAlign:'center', color:'#F26C0C'}}>Message</Text>
+        </TouchableOpacity>
+        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+          <TouchableOpacity 
+              style={{ margin:2,borderRadius:10, padding:10, backgroundColor:'#D3D3D3'}}
+              // onPress={}
+          >
+              <Text style={{textAlign:'center'}}>Book Appointment</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={{ margin:2,borderRadius:10, padding:10, backgroundColor:'#D3D3D3'}}
+            // onPress={}
+          >
+              <Text style={{textAlign:'center'}}>Network</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={{ margin:2,borderRadius:10, padding:10, backgroundColor:'#D3D3D3'}}
+            // onPress={}
+          >
+              <Text style={{textAlign:'center'}}>Groups</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.container}>
           <FlatList
