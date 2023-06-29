@@ -1,4 +1,4 @@
-import { View, Image } from 'react-native'
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import Register from '../screens/Register';
@@ -13,15 +13,53 @@ import TopStackNavigator from '../nav/TopStackNavigator'
 
 const Tab = createBottomTabNavigator();
 
+// Custom bottom tab bar component
+const CustomTabBar = ({ state, descriptors, navigation }) => {
+    return (
+      <View style={styles.tabBarContainer}>
+        {state.routes.map((route, index) => {
+          const { options } = descriptors[route.key];
+          const label = options.tabBarLabel || options.title || route.name;
+  
+          const isFocused = state.index === index;
+  
+          const onPress = () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true,
+            });
+  
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name);
+            }
+          };
+  
+          return (
+            <TouchableOpacity
+              key={route.key}
+              onPress={onPress}
+              style={[styles.tabItem, { opacity: isFocused ? 1 : 0.5 }]}
+            >
+              {/* Insert your tab icon or content */}
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    );
+  };
+  
 const BottomTabNavigator = () => {
   return (
       <Tab.Navigator
         initialRouteName="TopStackNavigator"
+        activeColor="red"
+      inactiveColor="gray"
         // screenOptions={{ headerShown: false, tabBarShowLabel: false }}
         screenOptions={{ tabBarShowLabel: false,
             activeTintColor: 'red', // Default activeTintColor
             inactiveTintColor: 'gray', }}
-        
+            // tabBar={props => <CustomTabBar {...props}/>}
       >
       {/* Define your tab screens here */}
       <Tab.Screen
@@ -34,11 +72,17 @@ const BottomTabNavigator = () => {
                         <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
                             <Image
                                 source={require("../assets/icons/home.png")}
-                                style={{width:20, height:20, tintColor: "#0077b6"}}
+                                style={{width:20, height:20, 
+                                    // tintColor: "#0077b6"
+                                }}
                                 />
                         </View>
                     )
-                }
+                },
+                tabBarOptions: {
+                    activeTintColor: 'tomato',
+                    inactiveTintColor: 'gray',
+                  },
             }}
         />
         <Tab.Screen
@@ -123,5 +167,23 @@ const BottomTabNavigator = () => {
       </Tab.Navigator>
   )
 }
+
+const styles = StyleSheet.create({
+    tabBarContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      backgroundColor: 'white',
+      borderTopWidth: 1,
+      borderTopColor: 'gray',
+      paddingVertical: 8,
+    },
+    tabItem: {
+      flex: 1,
+      alignItems: 'center',
+      paddingVertical: 8,
+    },
+  });
+  
 
 export default BottomTabNavigator
